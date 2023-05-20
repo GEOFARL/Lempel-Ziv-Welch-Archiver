@@ -16,7 +16,13 @@ int main(int argc, char *argv[])
   string outputFilename = argv[2];
   vector<string> inputFiles;
 
-  cout << mode << endl;
-  cout << outputFilename << endl;
+  if (mode == "--compress")
+  {
+    if (argc < 4)
+    {
+      cerr << "Usage: " << argv[0] << " --compress <output_file> <input_files>..." << endl;
+      return 1;
+    }
+  }
   return 0;
 }
