@@ -2,9 +2,10 @@
 
 #include <vector>
 #include <string>
+#include <fstream>
 
 class Archiver
 {
 public:
-  void Compress(const std::vector<std::string> &, const std::string &);
+  void compress(const std::vector<std::string> &, const std::string &);
 };
