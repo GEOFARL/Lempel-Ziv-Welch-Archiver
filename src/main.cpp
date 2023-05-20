@@ -23,6 +23,11 @@ int main(int argc, char *argv[])
       cerr << "Usage: " << argv[0] << " --compress <output_file> <input_files>..." << endl;
       return 1;
     }
+
+    for (int i = 3; i < argc; ++i)
+    {
+      inputFiles.push_back(argv[i]);
+    }
   }
   else if (mode != "--decompress")
   {
@@ -33,6 +38,12 @@ int main(int argc, char *argv[])
   {
     cerr << "Usage: " << argv[0] << " --decompress <archive_file>" << endl;
     return 1;
+  }
+
+  cout << "Input files: " << endl;
+  for (auto file : inputFiles)
+  {
+    cout << file << endl;
   }
   return 0;
 }
