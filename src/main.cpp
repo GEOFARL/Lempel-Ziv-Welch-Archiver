@@ -26,7 +26,12 @@ int main(int argc, char *argv[])
   }
   else if (mode != "--decompress")
   {
-    std::cerr << "Invalid mode. Please specify either --compress or --decompress." << std::endl;
+    cerr << "Invalid mode. Please specify either --compress or --decompress." << endl;
+    return 1;
+  }
+  else if (argc != 3)
+  {
+    cerr << "Usage: " << argv[0] << " --decompress <archive_file>" << endl;
     return 1;
   }
   return 0;
