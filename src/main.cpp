@@ -16,6 +16,12 @@ int main(int argc, char *argv[])
 
   string mode = argv[1];
   string outputFilename = argv[2];
+  if (!FileValidator::isValidArchiveExtension(outputFilename))
+  {
+    cerr << "Invalid archive extension for the " << outputFilename << std::endl;
+    cerr << "You should use " << FileValidator::validArchiveExt << std::endl;
+    return 1;
+  }
   vector<string> inputFiles;
 
   if (mode == "--compress")
