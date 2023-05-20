@@ -2,6 +2,8 @@
 #include <string>
 #include <vector>
 
+#include "FileValidator.hpp"
+
 using namespace std;
 
 int main(int argc, char *argv[])
@@ -14,6 +16,12 @@ int main(int argc, char *argv[])
 
   string mode = argv[1];
   string outputFilename = argv[2];
+  if (!FileValidator::isValidArchiveExtension(outputFilename))
+  {
+    cerr << "Invalid archive extension for the " << outputFilename << std::endl;
+    cerr << "You should use " << FileValidator::validArchiveExt << std::endl;
+    return 1;
+  }
   vector<string> inputFiles;
 
   if (mode == "--compress")
@@ -26,7 +34,15 @@ int main(int argc, char *argv[])
 
     for (int i = 3; i < argc; ++i)
     {
-      inputFiles.push_back(argv[i]);
+      if (FileValidator::isValidInputFile(argv[i]))
+      {
+        inputFiles.push_back(argv[i]);
+      }
+      else
+      {
+        std::cerr << "Invalid input file: " << argv[i] << std::endl;
+        return 1;
+      }
     }
   }
   else if (mode != "--decompress")
