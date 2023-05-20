@@ -71,6 +71,7 @@ int main(int argc, char *argv[])
   }
   else
   {
+    archiver.decompress(outputFilename);
     // decompressing ...
   }
   return 0;
