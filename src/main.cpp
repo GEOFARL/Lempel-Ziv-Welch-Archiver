@@ -24,5 +24,10 @@ int main(int argc, char *argv[])
       return 1;
     }
   }
+  else if (mode != "--decompress")
+  {
+    std::cerr << "Invalid mode. Please specify either --compress or --decompress." << std::endl;
+    return 1;
+  }
   return 0;
 }
