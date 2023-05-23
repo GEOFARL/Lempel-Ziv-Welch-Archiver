@@ -23,4 +23,8 @@ public:
   virtual std::size_t getBinaryWindowLength() const = 0;
   virtual void resetBinaryWindowLength() = 0;
   virtual void increaseBinaryWindowLength() = 0;
+
+  virtual ~IBitStream() = default;
+
+  static const char MY_EOF = '\x00';
 };

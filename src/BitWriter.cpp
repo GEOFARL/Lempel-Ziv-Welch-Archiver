@@ -24,3 +24,14 @@ void BitWriter::increaseBinaryWindowLength()
 {
   binaryWindowLength += 1;
 }
+
+BitWriter::~BitWriter()
+{
+  // Write what's left
+  if (bitCache.numOfBitsInUse != 0)
+  {
+    file.put(static_cast<char>(bitCache.data));
+  }
+
+  file.close();
+}
