@@ -4,6 +4,12 @@ void Archiver::compress(const std::vector<std::string> &inputFiles, const std::s
 {
   std::ofstream outFile(outputFilename, std::ios::binary);
 
+  if (!outFile)
+  {
+    // Failed to open the file
+    throw std::runtime_error("Failed to open file: " + outputFilename);
+  }
+
   // Write the number of input files to the output file
   uint8_t numFiles = inputFiles.size();
   outFile.write(reinterpret_cast<const char *>(&numFiles), sizeof(numFiles));
@@ -23,6 +29,12 @@ void Archiver::compress(const std::vector<std::string> &inputFiles, const std::s
 void Archiver::decompress(const std::string &inputFilename)
 {
   std::ifstream infile(inputFilename, std::ios::binary);
+
+  if (!infile)
+  {
+    // Failed to open the file
+    throw std::runtime_error("Failed to open file: " + inputFilename);
+  }
 
   // Read the number of input files from the input file
   uint8_t numFiles;

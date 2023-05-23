@@ -6,6 +6,8 @@
 #include <fstream>
 #include <iostream>
 
+#include "LZWCompressor.hpp"
+
 class Archiver
 {
 public:
