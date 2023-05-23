@@ -1,13 +1,8 @@
 #include "BitWriter.hpp"
 
-BitWriter::BitWriter(const std::string &fileName)
-    : IBitStream(9), file(fileName, std::ios::binary)
+BitWriter::BitWriter(std::ofstream &file)
+    : IBitStream(9), file{file}
 {
-  if (!file)
-  {
-    // Failed to open the file
-    throw std::runtime_error("Failed to open file: " + fileName);
-  }
 }
 
 std::size_t BitWriter::getBinaryWindowLength() const
@@ -27,15 +22,13 @@ void BitWriter::increaseBinaryWindowLength()
 
 BitWriter::~BitWriter()
 {
-  write(static_cast<uint32_t>(IBitStream::MY_EOF));
-
   // Write what's left
   if (bitCache.numOfBitsInUse != 0)
   {
     file.put(static_cast<char>(bitCache.data));
   }
 
-  file.close();
+  write(static_cast<uint32_t>(IBitStream::MY_EOF));
 }
 
 void BitWriter::write(uint32_t code)

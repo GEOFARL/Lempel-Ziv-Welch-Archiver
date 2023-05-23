@@ -6,6 +6,7 @@
 #include <fstream>
 
 #include "EncoderDictionary.hpp"
+#include "BitWriter.hpp"
 
 class LZWCompressor
 {

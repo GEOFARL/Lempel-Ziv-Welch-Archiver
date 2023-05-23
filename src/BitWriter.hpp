@@ -4,10 +4,10 @@
 
 class BitWriter : IBitStream
 {
-  std::ofstream file;
+  std::ofstream &file;
 
 public:
-  BitWriter(const std::string &);
+  BitWriter(std::ofstream &);
 
   virtual std::size_t getBinaryWindowLength() const override;
   virtual void resetBinaryWindowLength() override;
