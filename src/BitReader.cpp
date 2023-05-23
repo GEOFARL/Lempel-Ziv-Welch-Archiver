@@ -12,12 +12,17 @@ BitReader::BitReader(const std::string &fileName)
 
 std::size_t BitReader::getBinaryWindowLength() const
 {
+  return binaryWindowLength;
 }
+
 void BitReader::resetBinaryWindowLength()
 {
+  binaryWindowLength = 9;
 }
+
 void BitReader::increaseBinaryWindowLength()
 {
+  binaryWindowLength += 1;
 }
 
 void BitReader::read(uint32_t)
