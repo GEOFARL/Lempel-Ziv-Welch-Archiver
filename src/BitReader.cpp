@@ -31,4 +31,5 @@ void BitReader::read(uint32_t)
 
 BitReader::~BitReader()
 {
+  file.close();
 }
