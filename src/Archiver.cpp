@@ -5,14 +5,14 @@ void Archiver::compress(const std::vector<std::string> &inputFiles, const std::s
   std::ofstream outFile(outputFilename, std::ios::binary);
 
   // Write the number of input files to the output file
-  unsigned int numFiles = inputFiles.size();
+  uint8_t numFiles = inputFiles.size();
   outFile.write(reinterpret_cast<const char *>(&numFiles), sizeof(numFiles));
 
   for (const std::string &inputFile : inputFiles)
   {
     // Write the length of the file name and the file name itself
     // to the output file
-    unsigned int filenameLength = inputFile.size();
+    uint8_t filenameLength = inputFile.size();
     outFile.write(reinterpret_cast<const char *>(&filenameLength), sizeof(filenameLength));
     outFile.write(inputFile.c_str(), filenameLength);
   }
@@ -25,19 +25,25 @@ void Archiver::decompress(const std::string &inputFilename)
   std::ifstream infile(inputFilename, std::ios::binary);
 
   // Read the number of input files from the input file
-  unsigned int numFiles;
+  uint8_t numFiles;
   infile.read(reinterpret_cast<char *>(&numFiles), sizeof(numFiles));
-  std::cout << "Read: " << numFiles << std::endl;
+  std::cout << "Read: " << static_cast<int>(numFiles) << std::endl;
 
-  for (unsigned int i = 0; i < numFiles; ++i)
+  std::vector<std::string> compressedFiles;
+  for (uint8_t i = 0; i < numFiles; ++i)
   {
     // Read the length of the file name and the file name itself from
     // the input file
-    unsigned int filenameLength;
+    uint8_t filenameLength;
     infile.read(reinterpret_cast<char *>(&filenameLength), sizeof(filenameLength));
     std::string filename(filenameLength, ' ');
     infile.read(&filename[0], filenameLength);
-    std::cout << "Filename " << i + 1 << " : " << filename << std::endl;
+    compressedFiles.push_back(filename);
+  }
+
+  for (auto file : compressedFiles)
+  {
+    std::cout << "Filename: " << file << std::endl;
   }
   infile.close();
 }
