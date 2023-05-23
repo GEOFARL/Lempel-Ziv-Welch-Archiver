@@ -12,7 +12,9 @@
 class LZWDecompressor
 {
   DecoderDictionary dictionary;
+  BitReader reader;
 
 public:
-  void decompressFile(const std::string &, std::ifstream &);
+  LZWDecompressor(std::ifstream &);
+  void decompressFile(const std::string &);
 };

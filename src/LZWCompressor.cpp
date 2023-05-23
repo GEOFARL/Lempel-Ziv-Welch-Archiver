@@ -1,6 +1,8 @@
 #include "LZWCompressor.hpp"
 
-void LZWCompressor::compressFile(const std::string &inputFile, std::ofstream &outputFile)
+LZWCompressor::LZWCompressor(std::ofstream &outfile) : writer(outfile) {}
+
+void LZWCompressor::compressFile(const std::string &inputFile)
 {
   std::ifstream infile(inputFile, std::ios::binary);
   if (!infile)
@@ -8,7 +10,6 @@ void LZWCompressor::compressFile(const std::string &inputFile, std::ofstream &ou
     throw std::runtime_error("Failed to open the file.");
   }
 
-  BitWriter writer{outputFile};
   char ch;
   uint32_t currentIndex{IDictionary::EMPTY};
   bool resetBitWindowLength{false};
@@ -30,7 +31,7 @@ void LZWCompressor::compressFile(const std::string &inputFile, std::ofstream &ou
       writer.write(previousIndex);
       currentIndex = dictionary.searchInInitialTable(ch);
 
-      if (IBitStream::findNumOfRequiredBits(dictionary.getSize() - 1) > writer.getBinaryWindowLength())
+      while (IBitStream::findNumOfRequiredBits(dictionary.getSize() - 1) > writer.getBinaryWindowLength())
       {
         writer.increaseBinaryWindowLength();
       }
@@ -48,6 +49,8 @@ void LZWCompressor::compressFile(const std::string &inputFile, std::ofstream &ou
     // writing what's left
     writer.write(currentIndex);
   }
+
+  writer.writeEOF();
 
   infile.close();
 }

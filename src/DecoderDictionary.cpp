@@ -18,6 +18,8 @@ void DecoderDictionary::reset()
   {
     table.push_back({IDictionary::MAX_SIZE, static_cast<char>(ch)});
   }
+  // add dummy nodes for the metacodes
+  addPair(0, 0); // MetaCode::Eof
 }
 
 std::vector<char> *DecoderDictionary::reconstructString(uint32_t index)

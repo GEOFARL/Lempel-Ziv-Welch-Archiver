@@ -1,14 +1,17 @@
 #include "LZWDecompressor.hpp"
 
-void LZWDecompressor::decompressFile(const std::string &outputFile, std::ifstream &inputFile)
+LZWDecompressor::LZWDecompressor(std::ifstream &inputFile)
+    : reader(inputFile)
+{
+}
+
+void LZWDecompressor::decompressFile(const std::string &outputFile)
 {
   std::ofstream outfile(outputFile, std::ios::binary);
   if (!outfile)
   {
     throw std::runtime_error("Failed to open the file.");
   }
-
-  BitReader reader{inputFile};
 
   uint32_t previousIndex{IDictionary::EMPTY};
   uint32_t currentIndex{IDictionary::EMPTY};
@@ -23,7 +26,7 @@ void LZWDecompressor::decompressFile(const std::string &outputFile, std::ifstrea
       reader.resetBinaryWindowLength();
     }
 
-    if (IBitStream::findNumOfRequiredBits(dictionary.getSize() - 1) > reader.getBinaryWindowLength())
+    while (IBitStream::findNumOfRequiredBits(dictionary.getSize()) > reader.getBinaryWindowLength())
     {
       reader.increaseBinaryWindowLength();
     }
@@ -37,7 +40,7 @@ void LZWDecompressor::decompressFile(const std::string &outputFile, std::ifstrea
     // Check for invalid code
     if (currentIndex > dictionary.getSize())
     {
-      throw std::runtime_error("Invalid compression code");
+      throw std::runtime_error("Invalid compression code: " + std::to_string(currentIndex) + " " + std::to_string(dictionary.getSize()));
     }
 
     if (currentIndex == dictionary.getSize())

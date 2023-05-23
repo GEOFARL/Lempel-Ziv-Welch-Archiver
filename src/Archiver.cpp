@@ -10,7 +10,7 @@ void Archiver::compress(const std::vector<std::string> &inputFiles, const std::s
     throw std::runtime_error("Failed to open file: " + outputFilename);
   }
 
-  LZWCompressor compressor;
+  LZWCompressor compressor{outFile};
 
   // Write the number of input files to the output file
   uint8_t numFiles = inputFiles.size();
@@ -27,7 +27,7 @@ void Archiver::compress(const std::vector<std::string> &inputFiles, const std::s
 
   for (const std::string &inputFile : inputFiles)
   {
-    compressor.compressFile(inputFile, outFile);
+    compressor.compressFile(inputFile);
   }
 
   outFile.close();
@@ -43,7 +43,7 @@ void Archiver::decompress(const std::string &inputFilename)
     throw std::runtime_error("Failed to open file: " + inputFilename);
   }
 
-  LZWDecompressor decompressor;
+  LZWDecompressor decompressor{infile};
 
   // Read the number of input files from the input file
   uint8_t numFiles;
@@ -65,7 +65,7 @@ void Archiver::decompress(const std::string &inputFilename)
   for (auto file : compressedFiles)
   {
     std::cout << "Filename: " << file << std::endl;
-    decompressor.decompressFile("new_" + file, infile);
+    decompressor.decompressFile("new_" + file);
   }
   infile.close();
 }

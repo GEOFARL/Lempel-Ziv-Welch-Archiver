@@ -14,6 +14,7 @@ public:
   virtual void increaseBinaryWindowLength() override;
 
   void write(uint32_t);
+  void writeEOF();
 
   ~BitWriter();
 };

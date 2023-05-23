@@ -16,6 +16,7 @@ void EncoderDictionary::reset()
   {
     vectorOfNodes.push_back(Node(ch));
   }
+  vectorOfNodes.push_back(Node(0));
 }
 
 uint32_t EncoderDictionary::searchAndInsert(uint32_t index, char ch)

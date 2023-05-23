@@ -59,9 +59,11 @@ bool BitReader::read(uint32_t &code)
   }
 
   // Ending the reading process
-  if (code == static_cast<uint32_t>(IBitStream::MY_EOF))
+  if (code == IBitStream::MY_EOF)
   {
     foundEOF = true;
+    bitCache.numOfBitsInUse = 0;
+    bitCache.data = 0;
     return false;
   }
 

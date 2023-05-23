@@ -12,7 +12,9 @@
 class LZWCompressor
 {
   EncoderDictionary dictionary;
+  BitWriter writer;
 
 public:
-  void compressFile(const std::string &, std::ofstream &);
+  LZWCompressor(std::ofstream &);
+  void compressFile(const std::string &);
 };

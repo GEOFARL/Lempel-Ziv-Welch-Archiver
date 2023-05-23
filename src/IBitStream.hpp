@@ -26,7 +26,7 @@ public:
 
   virtual ~IBitStream() = default;
 
-  static const char MY_EOF = '\x00';
+  static const uint32_t MY_EOF = 256;
 
   static std::size_t findNumOfRequiredBits(unsigned long int code)
   {

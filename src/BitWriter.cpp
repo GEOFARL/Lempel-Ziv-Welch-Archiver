@@ -22,13 +22,7 @@ void BitWriter::increaseBinaryWindowLength()
 
 BitWriter::~BitWriter()
 {
-  // Write what's left
-  if (bitCache.numOfBitsInUse != 0)
-  {
-    file.put(static_cast<char>(bitCache.data));
-  }
-
-  write(static_cast<uint32_t>(IBitStream::MY_EOF));
+  writeEOF();
 }
 
 void BitWriter::write(uint32_t code)
@@ -72,5 +66,16 @@ void BitWriter::write(uint32_t code)
       bitCache.data = code;
       break;
     }
+  }
+}
+
+void BitWriter::writeEOF()
+{
+  write(IBitStream::MY_EOF);
+  // Write what's left
+  if (bitCache.numOfBitsInUse != 0)
+  {
+    file.put(static_cast<char>(bitCache.data));
+    bitCache.numOfBitsInUse = 0;
   }
 }
