@@ -1,10 +1,12 @@
 #pragma once
 
 #include "IBitStream.hpp"
+#include <array>
 
 class BitReader : IBitStream
 {
   std::ifstream file;
+  std::array<int, 9> bitMasks;
 
 public:
   BitReader(const std::string &);
@@ -13,7 +15,7 @@ public:
   virtual void resetBinaryWindowLength() override;
   virtual void increaseBinaryWindowLength() override;
 
-  void read(uint32_t);
+  bool read(uint32_t &);
 
   ~BitReader();
 };
