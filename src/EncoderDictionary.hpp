@@ -12,13 +12,15 @@ class EncoderDictionary : IDictionary
     uint32_t right;
 
     explicit Node(char current)
-        : previousChar{IDictionary::NULL},
+        : previousChar{IDictionary::EMPTY},
           currentChar{current},
-          left{IDictionary::NULL},
-          right{IDictionary::NULL}
+          left{IDictionary::EMPTY},
+          right{IDictionary::EMPTY}
     {
     }
   };
+
+  std::vector<Node> vectorOfNodes;
 
 public:
   EncoderDictionary();
