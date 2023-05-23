@@ -1,5 +1,7 @@
 #include "DecoderDictionary.hpp"
 
+const uint32_t IDictionary::MAX_SIZE;
+
 DecoderDictionary::DecoderDictionary()
 {
   // It's needed to not reallocate memory many times
