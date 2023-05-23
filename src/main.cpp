@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "FileValidator.hpp"
+#include "Archiver.hpp"
 
 using namespace std;
 
@@ -60,6 +61,18 @@ int main(int argc, char *argv[])
   for (auto file : inputFiles)
   {
     cout << file << endl;
+  }
+
+  Archiver archiver;
+  if (mode == "--compress")
+  {
+    // compressing ...
+    archiver.compress(inputFiles, outputFilename);
+  }
+  else
+  {
+    archiver.decompress(outputFilename);
+    // decompressing ...
   }
   return 0;
 }
