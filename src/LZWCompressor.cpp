@@ -10,6 +10,7 @@ void LZWCompressor::compressFile(const std::string &inputFile, std::ofstream &ou
   }
 
   char ch;
+  uint32_t currentIndex{IDictionary::EMPTY};
 
   while (infile.get(ch))
   {
@@ -17,5 +18,22 @@ void LZWCompressor::compressFile(const std::string &inputFile, std::ofstream &ou
     {
       dictionary.reset();
     }
+
+    const uint32_t previousIndex{currentIndex};
+
+    currentIndex = dictionary.searchAndInsert(previousIndex, ch);
+    if (currentIndex == IDictionary::EMPTY)
+    {
+      // writing previous index ...
+
+      currentIndex = dictionary.searchInInitialTable(ch);
+    }
   }
+
+  if (currentIndex != IDictionary::EMPTY)
+  {
+    // writing what's left
+  }
+
+  infile.close();
 }
