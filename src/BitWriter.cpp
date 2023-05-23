@@ -27,6 +27,8 @@ void BitWriter::increaseBinaryWindowLength()
 
 BitWriter::~BitWriter()
 {
+  write(static_cast<uint32_t>(IBitStream::MY_EOF));
+
   // Write what's left
   if (bitCache.numOfBitsInUse != 0)
   {

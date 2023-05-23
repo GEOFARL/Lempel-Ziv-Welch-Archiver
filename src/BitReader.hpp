@@ -8,6 +8,8 @@ class BitReader : IBitStream
   std::ifstream file;
   std::array<int, 9> bitMasks;
 
+  bool foundEOF;
+
 public:
   BitReader(const std::string &);
 
