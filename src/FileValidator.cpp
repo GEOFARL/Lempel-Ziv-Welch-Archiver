@@ -1,6 +1,6 @@
 #include "FileValidator.hpp"
 
-const std::string FileValidator::validArchiveExt = ".lz78";
+const std::string FileValidator::validArchiveExt = ".lzw";
 
 bool FileValidator::isValidInputFile(const std::string &filename)
 {
