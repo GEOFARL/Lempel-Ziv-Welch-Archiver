@@ -27,4 +27,17 @@ public:
   virtual ~IBitStream() = default;
 
   static const char MY_EOF = '\x00';
+
+  static std::size_t findNumOfRequiredBits(unsigned long int code)
+  {
+    std::size_t number{1};
+
+    // shifting a bite at a time
+    while ((code >>= 1) != 0)
+    {
+      number += 1;
+    }
+
+    return number;
+  }
 };
