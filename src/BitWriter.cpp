@@ -35,3 +35,47 @@ BitWriter::~BitWriter()
 
   file.close();
 }
+
+void BitWriter::write(uint32_t code)
+{
+  // How many bits to write
+  std::size_t leftBits{binaryWindowLength};
+
+  // Handle bits left from the previous writing
+  if (bitCache.numOfBitsInUse != 0)
+  {
+    // Adding as many bits as possible to the remaining byte
+    bitCache.data |= code << bitCache.numOfBitsInUse;
+
+    // Writing a complete byte to the file
+    file.put(static_cast<char>(bitCache.data));
+
+    // Removing bits that were already written
+    code >>= 8 - bitCache.numOfBitsInUse;
+
+    // Decreasing the number of the remaining bits
+    leftBits -= 8 - bitCache.numOfBitsInUse;
+
+    // Reseting a buffer
+    bitCache.numOfBitsInUse = 0;
+    bitCache.data = 0;
+  }
+
+  // Write rest of the bits
+  while (leftBits != 0)
+  {
+    // More than a whole byte left
+    if (leftBits >= 8)
+    {
+      file.put(static_cast<char>(code));
+      code >>= 8;
+      leftBits -= 8;
+    }
+    else // Cache left bits
+    {
+      bitCache.numOfBitsInUse = leftBits;
+      bitCache.data = code;
+      break;
+    }
+  }
+}
