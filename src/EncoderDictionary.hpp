@@ -1,6 +1,7 @@
 #pragma once
 
 #include "IDictionary.hpp"
+#include <array>
 
 class EncoderDictionary : IDictionary
 {
@@ -21,9 +22,13 @@ class EncoderDictionary : IDictionary
   };
 
   std::vector<Node> vectorOfNodes;
+  std::array<uint32_t, 256> initialTable;
+
+  void setUpInitialTable();
 
 public:
   EncoderDictionary();
   virtual void reset() override;
   uint32_t searchAndInsert(uint32_t, char);
+  uint32_t searchInInitialTable(char) const;
 };

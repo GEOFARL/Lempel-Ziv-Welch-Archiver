@@ -2,6 +2,9 @@
 
 EncoderDictionary::EncoderDictionary()
 {
+  setUpInitialTable();
+  // It's needed to not reallocate memory many times
+  vectorOfNodes.reserve(IDictionary::MAX_SIZE);
   reset();
 }
 
@@ -21,6 +24,7 @@ uint32_t EncoderDictionary::searchAndInsert(uint32_t index, char ch)
   {
     // need an initial table for O(1) lookup instead of searching in O(N)
     // through the vector of Nodes
+    return searchInInitialTable(ch);
   }
 
   // Next index in the table
@@ -79,4 +83,18 @@ uint32_t EncoderDictionary::searchAndInsert(uint32_t index, char ch)
 
   // Nothing found, inserted only
   return IDictionary::EMPTY;
+}
+
+void EncoderDictionary::setUpInitialTable()
+{
+  uint32_t current{};
+  for (int ch = -128; ch < 128; ++ch)
+  {
+    initialTable[static_cast<unsigned char>(ch)] = current++;
+  }
+}
+
+uint32_t EncoderDictionary::searchInInitialTable(char ch) const
+{
+  return initialTable[static_cast<unsigned char>(ch)];
 }
