@@ -7,6 +7,7 @@
 #include <iostream>
 
 #include "LZWCompressor.hpp"
+#include "LZWDecompressor.hpp"
 
 class Archiver
 {

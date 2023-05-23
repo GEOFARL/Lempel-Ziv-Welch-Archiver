@@ -29,7 +29,7 @@ void LZWDecompressor::decompressFile(const std::string &outputFile, std::ifstrea
     }
 
     // If the EOF was encountered
-    if (reader.read(currentIndex))
+    if (!reader.read(currentIndex))
     {
       break;
     }
@@ -56,7 +56,6 @@ void LZWDecompressor::decompressFile(const std::string &outputFile, std::ifstrea
 
     outfile.write(&string->front(), string->size());
     previousIndex = currentIndex;
-
-    outfile.close();
   }
+  outfile.close();
 }

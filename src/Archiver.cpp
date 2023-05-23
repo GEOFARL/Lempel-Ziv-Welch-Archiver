@@ -43,6 +43,8 @@ void Archiver::decompress(const std::string &inputFilename)
     throw std::runtime_error("Failed to open file: " + inputFilename);
   }
 
+  LZWDecompressor decompressor;
+
   // Read the number of input files from the input file
   uint8_t numFiles;
   infile.read(reinterpret_cast<char *>(&numFiles), sizeof(numFiles));
@@ -63,6 +65,7 @@ void Archiver::decompress(const std::string &inputFilename)
   for (auto file : compressedFiles)
   {
     std::cout << "Filename: " << file << std::endl;
+    decompressor.decompressFile("new_" + file, infile);
   }
   infile.close();
 }
