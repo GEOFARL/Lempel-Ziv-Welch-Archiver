@@ -39,5 +39,10 @@ std::vector<char> *DecoderDictionary::reconstructString(uint32_t index)
 
 bool DecoderDictionary::isFull() const
 {
-  return table.size() == IDictionary::MAX_SIZE;
+  return getSize() == IDictionary::MAX_SIZE;
+}
+
+std::size_t DecoderDictionary::getSize() const
+{
+  return table.size();
 }

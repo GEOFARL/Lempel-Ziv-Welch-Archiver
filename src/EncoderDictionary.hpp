@@ -30,6 +30,7 @@ public:
   EncoderDictionary();
   virtual void reset() override;
   virtual bool isFull() const override;
+  virtual std::size_t getSize() const override;
 
   uint32_t searchAndInsert(uint32_t, char);
   uint32_t searchInInitialTable(char) const;

@@ -101,5 +101,10 @@ uint32_t EncoderDictionary::searchInInitialTable(char ch) const
 
 bool EncoderDictionary::isFull() const
 {
-  return vectorOfNodes.size() == IDictionary::MAX_SIZE;
+  return getSize() == IDictionary::MAX_SIZE;
+}
+
+std::size_t EncoderDictionary::getSize() const
+{
+  return vectorOfNodes.size();
 }

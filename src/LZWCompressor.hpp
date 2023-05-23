@@ -7,6 +7,7 @@
 
 #include "EncoderDictionary.hpp"
 #include "BitWriter.hpp"
+#include "IBitStream.hpp"
 
 class LZWCompressor
 {

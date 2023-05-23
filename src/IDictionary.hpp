@@ -13,5 +13,6 @@ public:
 protected:
   virtual void reset() = 0;
   virtual bool isFull() const = 0;
+  virtual std::size_t getSize() const = 0;
   virtual ~IDictionary() = default;
 };

@@ -29,6 +29,11 @@ void LZWCompressor::compressFile(const std::string &inputFile, std::ofstream &ou
       // writing previous index ...
       writer.write(previousIndex);
       currentIndex = dictionary.searchInInitialTable(ch);
+
+      if (IBitStream::findNumOfRequiredBits(dictionary.getSize() - 1) > writer.getBinaryWindowLength())
+      {
+        writer.increaseBinaryWindowLength();
+      }
     }
 
     if (resetBitWindowLength)
