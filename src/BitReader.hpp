@@ -5,13 +5,13 @@
 
 class BitReader : IBitStream
 {
-  std::ifstream file;
+  std::ifstream &file;
   std::array<int, 9> bitMasks;
 
   bool foundEOF;
 
 public:
-  BitReader(const std::string &);
+  BitReader(std::ifstream &);
 
   virtual std::size_t getBinaryWindowLength() const override;
   virtual void resetBinaryWindowLength() override;
