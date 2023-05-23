@@ -8,4 +8,14 @@ void LZWCompressor::compressFile(const std::string &inputFile, std::ofstream &ou
   {
     throw std::runtime_error("Failed to open the file.");
   }
+
+  char ch;
+
+  while (infile.get(ch))
+  {
+    if (dictionary.isFull())
+    {
+      dictionary.reset();
+    }
+  }
 }

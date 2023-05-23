@@ -98,3 +98,8 @@ uint32_t EncoderDictionary::searchInInitialTable(char ch) const
 {
   return initialTable[static_cast<unsigned char>(ch)];
 }
+
+bool EncoderDictionary::isFull() const
+{
+  return vectorOfNodes.size() == IDictionary::MAX_SIZE;
+}

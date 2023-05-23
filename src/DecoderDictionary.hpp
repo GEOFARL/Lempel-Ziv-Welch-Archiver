@@ -11,6 +11,7 @@ class DecoderDictionary : IDictionary
 public:
   DecoderDictionary();
   virtual void reset() override;
+  virtual bool isFull() const override;
 
   std::vector<char> *reconstructString(uint32_t);
 };

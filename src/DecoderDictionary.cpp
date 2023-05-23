@@ -36,3 +36,8 @@ std::vector<char> *DecoderDictionary::reconstructString(uint32_t index)
   std::reverse(reconstructedString.begin(), reconstructedString.end());
   return &reconstructedString;
 }
+
+bool DecoderDictionary::isFull() const
+{
+  return table.size() == IDictionary::MAX_SIZE;
+}

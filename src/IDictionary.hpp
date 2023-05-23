@@ -11,5 +11,6 @@ protected:
   static const uint32_t EMPTY = MAX_SIZE;
 
   virtual void reset() = 0;
+  virtual bool isFull() const = 0;
   virtual ~IDictionary() = default;
 };
