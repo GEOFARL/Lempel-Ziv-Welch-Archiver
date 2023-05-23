@@ -6,13 +6,13 @@ class EncoderDictionary : IDictionary
 {
   struct Node
   {
-    uint32_t previousChar;
+    uint32_t nextNode;
     char currentChar;
     uint32_t left;
     uint32_t right;
 
     explicit Node(char current)
-        : previousChar{IDictionary::EMPTY},
+        : nextNode{IDictionary::EMPTY},
           currentChar{current},
           left{IDictionary::EMPTY},
           right{IDictionary::EMPTY}
@@ -25,4 +25,5 @@ class EncoderDictionary : IDictionary
 public:
   EncoderDictionary();
   virtual void reset() override;
+  uint32_t searchAndInsert(uint32_t, char);
 };
