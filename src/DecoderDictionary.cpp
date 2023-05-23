@@ -46,3 +46,8 @@ std::size_t DecoderDictionary::getSize() const
 {
   return table.size();
 }
+
+void DecoderDictionary::addPair(uint32_t code, char ch)
+{
+  table.push_back({code, ch});
+}

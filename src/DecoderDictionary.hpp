@@ -14,5 +14,7 @@ public:
   virtual bool isFull() const override;
   virtual std::size_t getSize() const override;
 
+  void addPair(uint32_t, char);
+
   std::vector<char> *reconstructString(uint32_t);
 };
