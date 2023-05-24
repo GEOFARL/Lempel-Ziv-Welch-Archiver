@@ -27,8 +27,12 @@ void Archiver::compress(const std::vector<std::string> &inputFiles, const std::s
 
   for (const std::string &inputFile : inputFiles)
   {
+    std::cout << "Compressing file " << inputFile << "... ";
     compressor.compressFile(inputFile);
+    std::cout << "Done." << std::endl;
   }
+
+  std::cout << "Result written to " << outputFilename << std::endl;
 
   outFile.close();
 }
@@ -48,7 +52,6 @@ void Archiver::decompress(const std::string &inputFilename)
   // Read the number of input files from the input file
   uint8_t numFiles;
   infile.read(reinterpret_cast<char *>(&numFiles), sizeof(numFiles));
-  std::cout << "Read: " << static_cast<int>(numFiles) << std::endl;
 
   std::vector<std::string> compressedFiles;
   for (uint8_t i = 0; i < numFiles; ++i)
@@ -64,8 +67,10 @@ void Archiver::decompress(const std::string &inputFilename)
 
   for (auto file : compressedFiles)
   {
-    std::cout << "Filename: " << file << std::endl;
+    std::cout << "Getting out file " << file << "... ";
     decompressor.decompressFile("new_" + file);
+    std::cout << "Done." << std::endl;
   }
+  std::cout << compressedFiles.size() << " files written." << std::endl;
   infile.close();
 }
