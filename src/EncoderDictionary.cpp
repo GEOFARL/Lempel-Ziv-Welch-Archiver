@@ -16,6 +16,7 @@ void EncoderDictionary::reset()
   {
     vectorOfNodes.push_back(Node(ch));
   }
+  // Fictional node to be in place of EOF
   vectorOfNodes.push_back(Node(0));
 }
 

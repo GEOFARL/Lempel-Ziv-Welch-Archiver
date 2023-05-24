@@ -2,3 +2,8 @@ obj
 build
 *.lzw
 *.txt
+*.mp4
+*.avif
+*.jpeg
+*.pdf
+.vscode/

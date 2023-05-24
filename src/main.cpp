@@ -58,14 +58,21 @@ int main(int argc, char *argv[])
     return 1;
   }
 
-  Archiver archiver;
-  if (mode == "--compress")
+  try
   {
-    archiver.compress(inputFiles, outputFilename);
+    Archiver archiver;
+    if (mode == "--compress")
+    {
+      archiver.compress(inputFiles, outputFilename);
+    }
+    else
+    {
+      archiver.decompress(outputFilename);
+    }
   }
-  else
+  catch (const exception &e)
   {
-    archiver.decompress(outputFilename);
+    cerr << e.what() << endl;
   }
   return 0;
 }
